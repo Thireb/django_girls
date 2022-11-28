@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Feedback, FeedbackPost
+from .models import Post, Feedback
 
 class PostForm(forms.ModelForm):
     """

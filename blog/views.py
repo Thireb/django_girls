@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404,redirect
 from .models import Post, Feedback
 from datetime import datetime
-from .forms import PostForm, FeedbackForm, FeedbackPostForm
+from .forms import PostForm, FeedbackForm
 from django.utils import timezone
 from django.http import HttpResponse
 # Create your views here.
@@ -56,7 +56,7 @@ def update_form(request,pk):
 #New feedback form
 def feedback(request):
     if request.method == 'POST':
-        feedForm = FeedbackForm(request.POST,   )
+        feedForm = FeedbackForm(request.POST)
         if feedForm.is_valid():
             feed = feedForm.save(commit=False)
             email= request.POST['email']

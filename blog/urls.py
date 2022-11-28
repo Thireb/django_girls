@@ -14,9 +14,9 @@ urlpatterns = [
     path('form/',views.new_post,name='new-form'),
     path('post/<int:pk>/update',views.update_form,name='update'),
     #feedback form
-    path('feedback',views.feedback, name='feedback'),
+    path('feedback/',views.feedback, name='feedback'),
     #feedback against a post
-    path('post/<int:pk>/feedback',views.feedback_against_post, name='feedback_Post'),
+    # path('post/<int:pk>/feedback',views.feedback_against_post, name='feedback_Post'),
     
 ]
 '''

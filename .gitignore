@@ -1,4 +1,6 @@
 #Virtual Env
 virtual_test/
+ven/
+venv/
 db.sqlite3
 .vscode/

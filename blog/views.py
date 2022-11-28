@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404,redirect
-from .models import Post
+from .models import Post, Feedback
 from datetime import datetime
-from .forms import PostForm
+from .forms import PostForm, FeedbackForm
 from django.utils import timezone
+from django.http import HttpResponse
 # Create your views here.
 
 
@@ -49,3 +50,40 @@ def update_form(request,pk):
     else:
         form = PostForm(instance=post)
     return render(request,'blog/new_form.html',{'form':form})
+
+
+
+#New feedback form
+def feedback(request):
+    if request.method == 'POST':
+        feedForm = FeedbackForm(request.POST)
+        if feedForm.is_valid():
+            feed = feedForm.save(commit=False)
+            email= request.POST['email']
+            if str(email).endswith('softcatalyst.com'):
+                feed.save()
+                return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
+            else:
+                return render(request,'blog/submitted.html',{'message':'Only Softcatalyst email holders can submit feedback.'})
+    else:
+        feedForm = FeedbackForm()
+    return render(request,'blog/feedback.html',{'form':feedForm})
+
+
+#Feedback against a post
+# def feedback_against_post(request, pk):
+#     post = get_object_or_404(Post, pk=pk)
+#     if request.method == 'POST':
+#         feedPostForm = FeedbackPostForm(request.POST, instance=post  )
+#         if feedPostForm.is_valid():
+#             feed = feedPostForm.save(commit=False)
+#             #feed.name = request.user
+#             email= request.POST['email']
+#             if str(email).endswith('softcatalyst.com'):
+#                 feed.save()
+#                 return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
+#             else:
+#                 return render(request,'blog/submitted.html',{'message':'Only Softcatalyst email holders can submit feedback.'})
+#     else:
+#         feedPostForm = FeedbackPostForm()
+#     return render(request,'blog/feedback.html',{'form':feedPostForm})

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Feedback, FeedbackPost
 
 class PostForm(forms.ModelForm):
     """
@@ -9,3 +9,19 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post 
         fields = ("title",'text')
+
+
+#Feedback form
+
+class FeedbackForm(forms.ModelForm):
+    
+    class Meta:
+        model = Feedback
+        fields = ("name",'email','feedback',)
+
+#Feedback against Post
+class FeedbackPostForm(forms.ModelForm):
+    
+    class Meta:
+        model = FeedbackPost
+        fields = ("reviewer",'email','feedback',)

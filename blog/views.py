@@ -71,19 +71,19 @@ def feedback(request):
 
 
 #Feedback against a post
-def feedback_against_post(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
-        feedPostForm = FeedbackPostForm(request.POST, instance=post  )
-        if feedPostForm.is_valid():
-            feed = feedPostForm.save(commit=False)
-            #feed.name = request.user
-            email= request.POST['email']
-            if str(email).endswith('softcatalyst.com'):
-                feed.save()
-                return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
-            else:
-                return render(request,'blog/submitted.html',{'message':'Only Softcatalyst email holders can submit feedback.'})
-    else:
-        feedPostForm = FeedbackPostForm()
-    return render(request,'blog/feedback.html',{'form':feedPostForm})
+# def feedback_against_post(request, pk):
+#     post = get_object_or_404(Post, pk=pk)
+#     if request.method == 'POST':
+#         feedPostForm = FeedbackPostForm(request.POST, instance=post  )
+#         if feedPostForm.is_valid():
+#             feed = feedPostForm.save(commit=False)
+#             #feed.name = request.user
+#             email= request.POST['email']
+#             if str(email).endswith('softcatalyst.com'):
+#                 feed.save()
+#                 return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
+#             else:
+#                 return render(request,'blog/submitted.html',{'message':'Only Softcatalyst email holders can submit feedback.'})
+#     else:
+#         feedPostForm = FeedbackPostForm()
+#     return render(request,'blog/feedback.html',{'form':feedPostForm})

@@ -32,11 +32,11 @@ class Feedback(models.Model):
         return self.name
     
     
-class FeedbackPost(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    reviewer = models.CharField(max_length=150)
-    email = models.EmailField('Enter your email.', max_length=254)
-    feedback = models.TextField('Write your feedback.')
+# class FeedbackPost(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+#     reviewer = models.CharField(max_length=150)
+#     email = models.EmailField('Enter your email.', max_length=254)
+#     feedback = models.TextField('Write your feedback.')
     
-    def __str__(self):
-        return self.reviewer
+#     def __str__(self):
+#         return self.reviewer

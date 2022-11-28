@@ -20,8 +20,8 @@ class FeedbackForm(forms.ModelForm):
         fields = ("name",'email','feedback',)
 
 #Feedback against Post
-class FeedbackPostForm(forms.ModelForm):
+# class FeedbackPostForm(forms.ModelForm):
     
-    class Meta:
-        model = FeedbackPost
-        fields = ("reviewer",'email','feedback',)
+#     class Meta:
+#         model = FeedbackPost
+#         fields = ("reviewer",'email','feedback',)

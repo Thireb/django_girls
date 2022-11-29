@@ -2,10 +2,12 @@
 
 blog/urls contains the urls for the project, being
 
-* index
-* detail
-* new-form
-* update
+* index at '/'
+* detail at 'post/{number}'
+* new-form at 'form'
+* update at 'post/{number}/update'
+* feedback at 'feedback'
+
 
 If running this project on local machine, then uncomment the STATICFILES_DIRS in the djangogirls/settings.py file.
 

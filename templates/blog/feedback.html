@@ -9,10 +9,10 @@
 
 <form action='' method = "post" novalidate class='post-form'>
     {% csrf_token %}
-    {{form.as_p}}
+    {{form|crispy}}
     <button type="submit" class="save btn btn-secondary">Save</button>
 
 </form>
 
-{% endblock content %}
+{% endblock content %}  
     

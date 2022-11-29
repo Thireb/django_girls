@@ -4,6 +4,8 @@ from datetime import datetime
 from .forms import PostForm, FeedbackForm
 from django.utils import timezone
 from django.http import HttpResponse
+from django.core.mail import get_connection, send_mail
+
 # Create your views here.
 
 
@@ -61,6 +63,14 @@ def feedback(request):
             feed = feedForm.save(commit=False)
             email= feed.email
             if email.endswith('softcatalyst.com'):
+                con = get_connection('django.core.mail.backends.console.EmailBackend')
+                send_mail(
+                feed.name,
+                feed.feedback,
+                feed.email,
+                ['siteowner@email.com'],
+                connection=con
+                )
                 feed.save()
                 return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
             else:

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +120,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 #uncomment the line below if to run on local machine.
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

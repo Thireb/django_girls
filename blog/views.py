@@ -59,7 +59,7 @@ def feedback(request):
         feedForm = FeedbackForm(request.POST)
         if feedForm.is_valid():
             feed = feedForm.save(commit=False)
-            email= request.POST['email']
+            email= feed.email
             if str(email).endswith('softcatalyst.com'):
                 feed.save()
                 return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})

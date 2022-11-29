@@ -77,3 +77,6 @@ h4 {
     color: #FFFFFF;
     background-color: #C25100;
 }
+.asteriskField {
+    display: none;
+}

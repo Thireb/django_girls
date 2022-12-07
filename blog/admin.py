@@ -3,6 +3,33 @@ from .models import Post, Feedback, FeedbackPost
 
 
 # Register your models here.
-admin.site.register(Post)
-admin.site.register(Feedback)
-admin.site.register(FeedbackPost)
+
+@admin.register(FeedbackPost)
+class FeedbackPostAdmin(admin.ModelAdmin):
+    '''Admin View for FeedbackPost'''
+
+    list_display = ('name','post','email',)
+    list_filter = ('email','post',)
+    search_fields = ('name','email',)
+    ordering = ('post',)
+
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    '''Admin View for Feedback'''
+
+    list_display = ('name','email')
+    list_filter = ('name',)
+    search_fields = ('email','feedback')
+    ordering = ('email',)
+
+
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    '''Admin View for Post'''
+
+    list_display = ('name','title','created_at',)
+    list_filter = ('created_at','published_at','name',)
+    search_fields = ('title','name',)
+    ordering = ('created_at',)

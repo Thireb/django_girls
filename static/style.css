@@ -7,6 +7,10 @@ h1 a, h2 a {
     color: #C25100;
     font-family: 'Lobster';
 }
+.text-success h1{
+    font-size: larger;
+}
+
 .page-header {
     background-color: #0e5e26;
     margin-top: 0;

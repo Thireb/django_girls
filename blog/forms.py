@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Feedback
+from .models import Post, Feedback, FeedbackPost
 
 class PostForm(forms.ModelForm):
     """
@@ -12,16 +12,29 @@ class PostForm(forms.ModelForm):
 
 
 #Feedback form
-
+#Feedback against the whole site
 class FeedbackForm(forms.ModelForm):
     
     class Meta:
         model = Feedback
         fields = ("name",'email','feedback',)
-
-#Feedback against Post
-# class FeedbackPostForm(forms.ModelForm):
+        
+    def clean_email(self):
+        mail = self.cleaned_data.get('email')
+        if not mail.endswith('softcatalyst.com'):
+            raise forms.ValidationError('Only softcatalyst.com emails are accepted.')
+        return mail
     
-#     class Meta:
-#         model = FeedbackPost
-#         fields = ("reviewer",'email','feedback',)
+
+#Feedback against one post
+class FeedbackPostForm(forms.ModelForm):
+    
+    class Meta:
+        model = FeedbackPost
+        fields = ("name",'email','feedback',)
+        
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not email.endswith('softcatalyst.com'):
+            raise forms.ValidationError("Only softcatslyst emails are accepted.")
+        return email

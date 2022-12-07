@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404,redirect
 from .models import Post, Feedback
 from datetime import datetime
-from .forms import PostForm, FeedbackForm
+from .forms import PostForm, FeedbackForm, FeedbackPostForm
 from django.utils import timezone
 from django.http import HttpResponse
 from django.core.mail import get_connection, send_mail
-
+from django.views.generic import TemplateView
+from django.urls import reverse_lazy
 # Create your views here.
 
 
@@ -14,6 +15,9 @@ def index(request):
     posts = Post.objects.filter(published_at__lte=datetime.now()).order_by('-published_at')
     return render(request,'blog/index.html',{'posts': posts})
 
+
+class Success(TemplateView):
+    template_name = "blog/success.html"
 
 # url route = detail
 def detail(request,pk):
@@ -61,39 +65,33 @@ def feedback(request):
         feedForm = FeedbackForm(request.POST)
         if feedForm.is_valid():
             feed = feedForm.save(commit=False)
-            email= feed.email
-            if email.endswith('softcatalyst.com'):
-                con = get_connection('django.core.mail.backends.console.EmailBackend')
-                send_mail(
-                feed.name,
-                feed.feedback,
-                feed.email,
-                ['siteowner@email.com'],
-                connection=con
-                )
-                feed.save()
-                return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
-            else:
-                return render(request,'blog/submitted.html',{'message':'Only Softcatalyst email holders can submit feedback.'})
+            con = get_connection('django.core.mail.backends.console.EmailBackend')
+            send_mail(
+            feed.name,
+            feed.feedback,
+            feed.email,
+            ['siteowner@email.com'],
+            connection=con
+            )
+            feed.save()
+            return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
     else:
         feedForm = FeedbackForm()
     return render(request,'blog/feedback.html',{'form':feedForm})
 
 
-#Feedback against a post
-# def feedback_against_post(request, pk):
-#     post = get_object_or_404(Post, pk=pk)
-#     if request.method == 'POST':
-#         feedPostForm = FeedbackPostForm(request.POST, instance=post  )
-#         if feedPostForm.is_valid():
-#             feed = feedPostForm.save(commit=False)
-#             #feed.name = request.user
-#             email= request.POST['email']
-#             if str(email).endswith('softcatalyst.com'):
-#                 feed.save()
-#                 return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
-#             else:
-#                 return render(request,'blog/submitted.html',{'message':'Only Softcatalyst email holders can submit feedback.'})
-#     else:
-#         feedPostForm = FeedbackPostForm()
-#     return render(request,'blog/feedback.html',{'form':feedPostForm})
+#New feedback post form
+def feedback_against_post(request, pk):
+    post_to_be_saved_against = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        feedPostForm = FeedbackPostForm(request.POST  )
+        if feedPostForm.is_valid():
+            feed = feedPostForm.save(commit=False)
+            feed.name = request.user
+            feed.post = post_to_be_saved_against
+            feed.save()
+            return redirect(reverse_lazy('success'))
+            #return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
+    else:
+        feedPostForm = FeedbackPostForm()
+    return render(request,'blog/feedback.html',{'form':feedPostForm})

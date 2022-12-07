@@ -1,11 +1,15 @@
 {% extends "blog/base.html" %}
-
+{% load static %}
 
 {% block content %}
     <article class="post">
         <aside class="actions">
             <a class="btn btn-secondary" href="{% url 'update' pk=post.pk %}">
                 {% include './icons/pencil-fill.svg' %}
+            </a>
+            <a class="btn" href="{% url 'feedback_post' pk=post.pk %}">
+                <img class="" src='{% static "icons/icon10.png" %}'>
+                
             </a>
         </aside>
         {% if post.published_at %}

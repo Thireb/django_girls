@@ -74,7 +74,9 @@ def feedback(request):
             connection=con
             )
             feed.save()
-            return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
+            return redirect(reverse_lazy('success'))
+            
+            #return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
     else:
         feedForm = FeedbackForm()
     return render(request,'blog/feedback.html',{'form':feedForm})

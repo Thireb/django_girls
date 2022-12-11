@@ -5,8 +5,10 @@ from .forms import PostForm, FeedbackForm, FeedbackPostForm
 from django.utils import timezone
 from django.http import HttpResponse
 from django.core.mail import get_connection, send_mail
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DeleteView
 from django.urls import reverse_lazy
+from django.http import JsonResponse
+
 # Create your views here.
 
 
@@ -97,3 +99,16 @@ def feedback_against_post(request, pk):
     else:
         feedPostForm = FeedbackPostForm()
     return render(request,'blog/feedback.html',{'form':feedPostForm})
+
+
+#Delete view, pass the id to delete it.
+def PostDeleteView(request):
+    try:
+
+        pkey = request.GET.get('post_to_delete')
+        #print(pkey)
+        post = get_object_or_404(Post, pk=pkey)
+        post.delete()
+        return JsonResponse({'Deleted':True}, status = 200)
+    except:
+        return JsonResponse({"Deleted":False}, status=400)

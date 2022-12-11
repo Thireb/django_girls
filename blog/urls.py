@@ -19,6 +19,9 @@ urlpatterns = [
     path('post/<int:pk>/feedback',views.feedback_against_post, name='feedback_post'),
     #Feedback Success
     path('success/',views.Success.as_view(),name='success'),
+    #Delete View
+    path('delete',views.PostDeleteView,name='delete'),
+    
     
 ]
 '''

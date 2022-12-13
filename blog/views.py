@@ -72,7 +72,9 @@ def update_via_ajax(request):
             post.save()
             return JsonResponse({'Updated':True}, status = 200)
         except:
-            return JsonResponse({'Updated':False}, status = 200)
+            return JsonResponse({'Updated':False}, status = 400)
+    else:
+        return JsonResponse({'Updated':False}, status = 400)
         
         
 

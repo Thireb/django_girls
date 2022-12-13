@@ -13,7 +13,7 @@ urlpatterns = [
     path('post/<int:pk>/',views.detail,name='detail'),
     path('form/',views.new_post,name='new-form'),
     path('post/<int:pk>/update',views.update_form,name='update_form'),
-    #ajax url
+    #ajax url for update
     path('update',views.update_via_ajax, name='update'),
     #feedback form general to whole site
     path('feedback/',views.feedback, name='feedback'),

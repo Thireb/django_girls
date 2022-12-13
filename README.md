@@ -5,6 +5,8 @@ blog/urls contains the urls for the project, being
 - index at '/'
 - detail at 'post/{number}'
 - new-form at 'form'
+- update at 'update'
+- delete at 'delete'
 - update at 'post/{number}/update'
 - feedback at 'feedback'
 - feedback Post at 'post/{number}/feedback

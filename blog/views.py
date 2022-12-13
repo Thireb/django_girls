@@ -43,14 +43,10 @@ def new_post(request):
 
 
 
-#url route = update
+#url route = update_form
 def update_form(request,pk):
     post = get_object_or_404(Post,pk=pk)
     if request.method == 'POST':
-        post_id = request.POST['post_id']
-        title = request.POST['title']
-        text = request.POST['text']
-        
         form = PostForm(request.POST,instance=post)
         if form.is_valid():
             post = form.save(commit=False)
@@ -62,16 +58,13 @@ def update_form(request,pk):
         form = PostForm(instance=post)
     return render(request,'blog/new_form.html',{'form':form})
 
+#route at 'update'
 def update_via_ajax(request):
     if request.method == 'POST':
         try:
             post_id = request.POST.get('post_to_update')
             title = request.POST.get('title')
             text = request.POST.get('text')
-            print('Title ')
-            print(title)
-            print('Text ')
-            print(text)
             post = get_object_or_404(Post,pk = post_id)
             post.title = title
             post.text = text
@@ -128,7 +121,6 @@ def PostDeleteView(request):
     try:
 
         pkey = request.GET.get('post_to_delete')
-        #print(pkey)
         post = get_object_or_404(Post, pk=pkey)
         post.delete()
         return JsonResponse({'Deleted':True}, status = 200)

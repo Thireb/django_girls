@@ -12,7 +12,8 @@ urlpatterns = [
     path('',views.index, name='index'),
     path('post/<int:pk>/',views.detail,name='detail'),
     path('form/',views.new_post,name='new-form'),
-    path('post/<int:pk>/update',views.update_form,name='update'),
+    path('post/<int:pk>/update',views.update_form,name='update_form'),
+    path('update',views.update_via_ajax, name='update'),
     #feedback form general to whole site
     path('feedback/',views.feedback, name='feedback'),
     #feedback against a post

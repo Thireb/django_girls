@@ -47,6 +47,9 @@ def new_post(request):
 def update_form(request,pk):
     post = get_object_or_404(Post,pk=pk)
     if request.method == 'POST':
+        post_id = request.POST['post_id']
+        title = request.POST['title']
+        text = request.POST['text']
         
         form = PostForm(request.POST,instance=post)
         if form.is_valid():
@@ -59,7 +62,26 @@ def update_form(request,pk):
         form = PostForm(instance=post)
     return render(request,'blog/new_form.html',{'form':form})
 
-
+def update_via_ajax(request):
+    if request.method == 'POST':
+        try:
+            post_id = request.POST.get('post_to_update')
+            title = request.POST.get('title')
+            text = request.POST.get('text')
+            print('Title ')
+            print(title)
+            print('Text ')
+            print(text)
+            post = get_object_or_404(Post,pk = post_id)
+            post.title = title
+            post.text = text
+            post.publish()
+            post.save()
+            return JsonResponse({'Updated':True}, status = 200)
+        except:
+            return JsonResponse({'Updated':False}, status = 200)
+        
+        
 
 #New feedback form
 def feedback(request):

@@ -24,11 +24,7 @@ function postDelete(){
         var meriDiv = document.getElementById(post_to_delete);
         console.log(post_to_delete.type)
         meriDiv.parentNode.removeChild(meriDiv);
-        //$("#myModal").modal("hide");
-        //$("main").load(" main");
-
-
-        //$('.col').load(' .col', function(){$(this).children().unwrap()})
+        
       },
       error: function (xhr, errmsg, err) {
         $("#results").html(

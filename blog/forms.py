@@ -9,20 +9,6 @@ class PostForm(forms.ModelForm):
         model = Post 
         fields = ("title",'text')
 
-#Feedback form
-#Feedback against the whole site
-# class FeedbackForm(forms.ModelForm):
-    
-#     class Meta:
-#         model = Feedback
-#         fields = ("name",'email','feedback',)
-        
-#     def clean_email(self):
-#         mail = self.cleaned_data.get('email')
-#         if not mail.endswith('softcatalyst.com'):
-#             raise forms.ValidationError('Only softcatalyst.com emails are accepted.')
-#         return mail
-    
 
 #Feedback against one post
 class FeedbackPostForm(forms.ModelForm):

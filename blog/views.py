@@ -39,23 +39,6 @@ def new_post(request):
         form = PostForm()
     return render(request,'blog/new_form.html',{'form':form})
 
-
-
-#url route = update_form
-# def update_form(request,pk):
-#     post = get_object_or_404(Post,pk=pk)
-#     if request.method == 'POST':
-#         form = PostForm(request.POST,instance=post)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.name = request.user
-#             post.published_at = timezone.now()
-#             post.save()
-#             return redirect('detail',pk=post.pk)
-#     else:
-#         form = PostForm(instance=post)
-#     return render(request,'blog/new_form.html',{'form':form})
-
 #route at 'update'
 #Update using ajax in the detail page
 def updatePost(request):
@@ -77,29 +60,6 @@ def updatePost(request):
         
         
 
-#New feedback form
-# def feedback(request):
-#     if request.method == 'POST':
-#         feedForm = FeedbackForm(request.POST)
-#         if feedForm.is_valid():
-#             feed = feedForm.save(commit=False)
-#             con = get_connection('django.core.mail.backends.console.EmailBackend')
-#             send_mail(
-#             feed.name,
-#             feed.feedback,
-#             feed.email,
-#             ['siteowner@email.com'],
-#             connection=con
-#             )
-#             feed.save()
-#             return redirect(reverse_lazy('success'))
-            
-#             #return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
-#     else:
-#         feedForm = FeedbackForm()
-#     return render(request,'blog/feedback.html',{'form':feedForm})
-
-
 #New feedback post form
 def feedback_against_post(request, pk):
     post_to_be_saved_against = get_object_or_404(Post, pk=pk)
@@ -111,7 +71,6 @@ def feedback_against_post(request, pk):
             feed.post = post_to_be_saved_against
             feed.save()
             return redirect(reverse_lazy('success'))
-            #return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
     else:
         feedPostForm = FeedbackPostForm()
     return render(request,'blog/feedback.html',{'form':feedPostForm})

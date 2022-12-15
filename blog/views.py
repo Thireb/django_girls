@@ -1,11 +1,9 @@
 from django.shortcuts import render, get_object_or_404,redirect
-from .models import Post, Feedback
+from .models import Post
 from datetime import datetime
-from .forms import PostForm, FeedbackForm, FeedbackPostForm
+from .forms import PostForm, FeedbackPostForm
 from django.utils import timezone
-from django.http import HttpResponse
-from django.core.mail import get_connection, send_mail
-from django.views.generic import TemplateView, DeleteView
+from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 
@@ -44,22 +42,23 @@ def new_post(request):
 
 
 #url route = update_form
-def update_form(request,pk):
-    post = get_object_or_404(Post,pk=pk)
-    if request.method == 'POST':
-        form = PostForm(request.POST,instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.name = request.user
-            post.published_at = timezone.now()
-            post.save()
-            return redirect('detail',pk=post.pk)
-    else:
-        form = PostForm(instance=post)
-    return render(request,'blog/new_form.html',{'form':form})
+# def update_form(request,pk):
+#     post = get_object_or_404(Post,pk=pk)
+#     if request.method == 'POST':
+#         form = PostForm(request.POST,instance=post)
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             post.name = request.user
+#             post.published_at = timezone.now()
+#             post.save()
+#             return redirect('detail',pk=post.pk)
+#     else:
+#         form = PostForm(instance=post)
+#     return render(request,'blog/new_form.html',{'form':form})
 
 #route at 'update'
-def update_via_ajax(request):
+#Update using ajax in the detail page
+def updatePost(request):
     if request.method == 'POST':
         try:
             post_id = request.POST.get('post_to_update')
@@ -79,26 +78,26 @@ def update_via_ajax(request):
         
 
 #New feedback form
-def feedback(request):
-    if request.method == 'POST':
-        feedForm = FeedbackForm(request.POST)
-        if feedForm.is_valid():
-            feed = feedForm.save(commit=False)
-            con = get_connection('django.core.mail.backends.console.EmailBackend')
-            send_mail(
-            feed.name,
-            feed.feedback,
-            feed.email,
-            ['siteowner@email.com'],
-            connection=con
-            )
-            feed.save()
-            return redirect(reverse_lazy('success'))
+# def feedback(request):
+#     if request.method == 'POST':
+#         feedForm = FeedbackForm(request.POST)
+#         if feedForm.is_valid():
+#             feed = feedForm.save(commit=False)
+#             con = get_connection('django.core.mail.backends.console.EmailBackend')
+#             send_mail(
+#             feed.name,
+#             feed.feedback,
+#             feed.email,
+#             ['siteowner@email.com'],
+#             connection=con
+#             )
+#             feed.save()
+#             return redirect(reverse_lazy('success'))
             
-            #return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
-    else:
-        feedForm = FeedbackForm()
-    return render(request,'blog/feedback.html',{'form':feedForm})
+#             #return render(request,'blog/submitted.html',{'message':'Thank you for your feedback.'})
+#     else:
+#         feedForm = FeedbackForm()
+#     return render(request,'blog/feedback.html',{'form':feedForm})
 
 
 #New feedback post form
@@ -119,7 +118,7 @@ def feedback_against_post(request, pk):
 
 
 #Delete view, pass the id to delete it.
-def PostDeleteView(request):
+def deletePost(request):
     try:
 
         pkey = request.GET.get('post_to_delete')

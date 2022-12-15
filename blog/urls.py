@@ -12,20 +12,17 @@ urlpatterns = [
     path('',views.index, name='index'),
     path('post/<int:pk>/',views.detail,name='detail'),
     path('form/',views.new_post,name='new-form'),
-    path('post/<int:pk>/update',views.update_form,name='update_form'),
+    #path('post/<int:pk>/update',views.update_form,name='update_form'),
     #ajax url for update
-    path('update',views.update_via_ajax, name='update'),
+    path('update',views.updatePost, name='update'),
     #feedback form general to whole site
-    path('feedback/',views.feedback, name='feedback'),
+    #path('feedback/',views.feedback, name='feedback'),
     #feedback against a post
     path('post/<int:pk>/feedback',views.feedback_against_post, name='feedback_post'),
     #Feedback Success
     path('success/',views.Success.as_view(),name='success'),
     #Delete View
-    path('delete',views.PostDeleteView,name='delete'),
+    path('delete',views.deletePost,name='delete'),
     
     
 ]
-'''
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAAxElEQVQ4je3UMWoCURCH8d+uFmqVLloLEa29gW0uYeEZ0ll4heAJkipVCkGwVK+hfYiw28R0YrEbUMEgu6/0a4Y3xff+DMwQmCivDTzjoaAnxQz7GBXM8VQiWCd3VKCHtxKyP97RjVHHPoDwB404gOiMu/AuLChM8RjA1UJSxQYJPvGFA8b4Rh+jG2RN7LCNTppt2bV5wRQrLDCRrdV/JNhC9aS5yWst/+0VH1jekPAqI9lM1xgWEUQX74Hspq3wWyZZMI6Q7SEbdUG5+wAAAABJRU5ErkJggg==">
-'''

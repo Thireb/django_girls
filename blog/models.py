@@ -24,13 +24,13 @@ class Post(models.Model):
         return self.title
     
 #Feedback model, complete site
-class Feedback(models.Model):
-    name = models.CharField(max_length=150)
-    email = models.EmailField('Enter your email.', max_length=254)
-    feedback = models.TextField('Write your feedback.')
+# class Feedback(models.Model):
+#     name = models.CharField(max_length=150)
+#     email = models.EmailField('Enter your email.', max_length=254)
+#     feedback = models.TextField('Write your feedback.')
     
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
     
     
 #Feedback model, one post

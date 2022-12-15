@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Feedback, FeedbackPost
+from .models import Post, FeedbackPost
 
 
 # Register your models here.
@@ -13,15 +13,6 @@ class FeedbackPostAdmin(admin.ModelAdmin):
     search_fields = ('name','email',)
     ordering = ('post',)
 
-
-@admin.register(Feedback)
-class FeedbackAdmin(admin.ModelAdmin):
-    '''Admin View for Feedback'''
-
-    list_display = ('name','email')
-    list_filter = ('name',)
-    search_fields = ('email','feedback')
-    ordering = ('email',)
 
 
 

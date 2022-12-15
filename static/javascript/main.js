@@ -7,7 +7,7 @@ $(document).on("click", "#myBtn", function (event) {
 });
 
 
-function mujheMaaro(){
+function postDelete(){
     
     //var post_to_delete = $(this).attr("item_id");
     console.log(post_to_delete)
@@ -41,8 +41,8 @@ function mujheMaaro(){
     });
 }
 
-function edoTensei(){
-    mujheMaaro();
+function postDeleteCall(){
+    postDelete();
 
 }
 
@@ -54,7 +54,7 @@ $(document).on("click",'#edit', function(event){
     
 })
 
-function updateme(){
+function postUpdate(){
     console.log(post_to_update);
     var text_to_update = $('#id_text').val()
     console.log(text_to_update)
@@ -87,6 +87,6 @@ function updateme(){
       },
     });
 }
-function edoTensei_2(){
-    updateme()
+function postUpdateCall(){
+    postUpdate()
 }

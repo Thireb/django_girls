@@ -54,7 +54,7 @@
             <label for="id_text">Enter the text here:</label>
             <textarea name="text" cols="40" rows="10" required="" id="id_text">{{post.text}}</textarea>
             </p>
-            <button type="submit" onClick="edoTensei_2()" class="btn btn-success btn-block" item_id="{{post.pk}}" id='yes_button' data-dismiss="modal"><span class="glyphicon glyphicon-on"></span> Update</button>
+            <button type="submit" onClick="postUpdateCall()" class="btn btn-success btn-block" item_id="{{post.pk}}" id='yes_button' data-dismiss="modal"><span class="glyphicon glyphicon-on"></span> Update</button>
             </form>
         </div>
         <div class="modal-footer">
